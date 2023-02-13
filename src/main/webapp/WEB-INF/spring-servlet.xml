@@ -20,7 +20,7 @@
 	<context:annotation-config></context:annotation-config> <!--  It tells spring that we are using annotation -->	
 	
 	<context:component-scan base-package="com.codejango.controller"></context:component-scan>
-	<context:component-scan base-package="com.codejango.studentcontroller"></context:component-scan>
+	
 	<!--  it tells Spring that inside this package we have our controller -->
 
 	<mvc:annotation-driven></mvc:annotation-driven> <!--  It tells spring that we are using annotation -->	
