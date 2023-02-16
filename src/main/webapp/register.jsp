@@ -11,14 +11,27 @@
 <title>This is the home JSP</title>
 </head>
 <body>
-	<h1> Home </h1>
-	<h5>${message}</h5>
+	<div>
+		<form action="/SpringMVCTraining/student" method="post">
+			
+			Name: 
+			<input type="text" name="name" id="name">
+			
+			Email: 
+			<input type="text" name="email" id="email">
+			
+			Password: 
+			<input type="text" name="password" id="password">
+			
+			Age: 
+			<input type="text" name="age" id="age">
+			
+			<input type="submit" value="Register">
+		
+		</form>
 	
-	${student.id}
-	${student.name}
-	${student.age}
+	</div>
 	
 	<a href="/SpringMVCTraining/login">Go to Login Page</a>
-	<a href="/SpringMVCTraining/register">Go to Register Page</a>
 </body>
 </html>

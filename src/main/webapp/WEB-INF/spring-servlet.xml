@@ -20,10 +20,41 @@
 	<context:annotation-config></context:annotation-config> <!--  It tells spring that we are using annotation -->	
 	
 	<context:component-scan base-package="com.codejango.controller"></context:component-scan>
+	<context:component-scan base-package="com.codejango.studentrepository"></context:component-scan>
+	<context:component-scan base-package="com.codejango.studentservice"></context:component-scan>
 	
 	<!--  it tells Spring that inside this package we have our controller -->
-
 	<mvc:annotation-driven></mvc:annotation-driven> <!--  It tells spring that we are using annotation -->	
+	
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url" value="jdbc:mysql://localhost:3306/hibernate_relations?useSSL=false"/>
+			<property name="username" value="root"/>
+			<property name="password" value="root" />
+	</bean>
+	
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="packagesToScan" value="com.codejango.model"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.show_sql">true</prop><!--optional  -->
+				<prop key="hibernate.formate_sql">true</prop><!-- optional -->
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+	
+	<tx:annotation-driven proxy-target-class="true" />	
 	
 	
 
