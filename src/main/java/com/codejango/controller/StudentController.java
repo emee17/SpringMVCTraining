@@ -11,7 +11,7 @@ import com.codejango.model.Student;
 import com.codejango.studentservice.StudentService;
 
 @Controller
-@RequestMapping("/student")//http://localhost:8080/SpringMVCTraining/student
+@RequestMapping("/student")//http://localhost:8080/SpringMVCTraining/student/test
 public class StudentController {
 	
 	
@@ -25,9 +25,20 @@ public class StudentController {
 		studentService.save(student);
 		
 		
-		mv.setViewName("home.jsp");
+		//mv.setViewName("home.jsp");
+		
+		
+		mv.setViewName("redirect:/");//localhost:8080/SpringMVCTraining/
 		
 		return mv;
 	}
+	
+	
+	public void findAll() {
+		
+		
+	}
+	
+	
 
 }

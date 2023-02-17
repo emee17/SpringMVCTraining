@@ -1,5 +1,7 @@
 package com.codejango.studentservice;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,14 @@ public class StudentService {
 		
 		
 		studentRepository.save(student);
+	}
+	
+	public List<Student> findAll() {
+		
+		//logic
+		List<Student> studentList = studentRepository.findAll();
+		
+		//return studentRepository.findAll();
+		return studentList;
 	}
 }
