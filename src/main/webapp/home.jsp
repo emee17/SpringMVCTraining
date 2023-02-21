@@ -15,15 +15,21 @@
 
 	<table border="1">
 		<tr>
+			<th>ID</th>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Age</th>
+			<th>Edit</th>
+			<th>Delete ?</th>
 		</tr>
 		<c:forEach var="student" items="${studentList}">
 			<tr>
+				<td>${student.id}</td>	
 				<td>${student.name}</td>
 				<td>${student.email}</td>
 				<td align="center">${student.age}</td>
+				<td align="center"><a href="/SpringMVCTraining/edit/${student.id}">Edit</a></td>
+				<td align="center"><a href="/SpringMVCTraining/student/delete/${student.id}">Delete</a></td>
 			</tr>
 		</c:forEach>
 	</table>

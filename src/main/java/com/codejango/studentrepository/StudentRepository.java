@@ -48,4 +48,24 @@ public class StudentRepository {
 		
 		return studentList;
 	}
+	
+	
+	public void deleteByID(int id) {
+		
+		Student student = entityManager.find(Student.class, id);//71
+		
+		System.out.println(student);
+		
+		if(student != null) {			
+			entityManager.remove(student);
+		}
+		
+		
+	}
+
+
+	public Student findByID(int id) {
+		
+		return entityManager.find(Student.class, id);
+	}
 }

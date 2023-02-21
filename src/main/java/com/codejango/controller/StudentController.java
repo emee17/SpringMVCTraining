@@ -2,7 +2,9 @@ package com.codejango.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +22,7 @@ public class StudentController {
 	
 	
 	@PostMapping("")
-	public ModelAndView saveStudent(@ModelAttribute("student") Student student, ModelAndView mv) {
+	public String saveStudent(@ModelAttribute("student") Student student, ModelAndView mv) {
 		
 		studentService.save(student);
 		
@@ -28,15 +30,20 @@ public class StudentController {
 		//mv.setViewName("home.jsp");
 		
 		
-		mv.setViewName("redirect:/");//localhost:8080/SpringMVCTraining/
+		//mv.setViewName("redirect:/");//localhost:8080/SpringMVCTraining/
 		
-		return mv;
+		return "redirect:/";
 	}
 	
-	
-	public void findAll() {
+	@GetMapping("/delete/{id}")
+	public String deleteStudent(@PathVariable int id) {
+		// There are two types of value which come from URL
+		// 1 Path Variable http://localhost:8080/SpringMVCTraining/student/delete/4
+		// 2 RequestParam http://localhost:8080/SpringMVCTraining/student/delete/4?name=Ravi&age=25
 		
+		studentService.deleteByID(id);
 		
+		return "redirect:/";
 	}
 	
 	

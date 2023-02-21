@@ -31,4 +31,13 @@ public class StudentService {
 		//return studentRepository.findAll();
 		return studentList;
 	}
+	
+	public void deleteByID(int id) {
+		studentRepository.deleteByID(id);
+	}
+
+	public Student findByID(int id) {
+		
+		return studentRepository.findByID(id);
+	}
 }

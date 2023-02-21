@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -50,6 +51,20 @@ public class HomeController {
 		
 		//ModelAndView mv = new ModelAndView();
 		
+		mv.addObject("student", new Student());
+		mv.setViewName("register.jsp");
+		
+		return mv;
+	}
+	
+	@GetMapping("edit/{id}")
+	public ModelAndView editPage(@PathVariable int id, ModelAndView mv) {
+		
+		//ModelAndView mv = new ModelAndView();
+		
+		Student student = studentService.findByID(id);
+		
+		mv.addObject("student", student);
 		mv.setViewName("register.jsp");
 		
 		return mv;
