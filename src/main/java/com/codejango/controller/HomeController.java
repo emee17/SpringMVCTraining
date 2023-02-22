@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,7 +66,7 @@ public class HomeController {
 		Student student = studentService.findByID(id);
 		
 		mv.addObject("student", student);
-		mv.setViewName("register.jsp");
+		mv.setViewName("/register.jsp");
 		
 		return mv;
 	}

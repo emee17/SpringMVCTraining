@@ -24,6 +24,9 @@ public class StudentController {
 	@PostMapping("")
 	public String saveStudent(@ModelAttribute("student") Student student, ModelAndView mv) {
 		
+		
+		System.out.println("New Student : "+student);
+		
 		studentService.save(student);
 		
 		

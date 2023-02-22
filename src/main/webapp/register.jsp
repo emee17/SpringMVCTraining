@@ -14,7 +14,7 @@
 <body>
 	<div>
 	${student.name}
-	<form:form modelAttribute="student" action="/SpringMVCTraining/student" method="post">
+	<%-- <form:form modelAttribute="student" action="/SpringMVCTraining/student" method="post">
 		<table>
                 <tr>
                     <td><form:label path="name">Name</form:label></td>
@@ -36,8 +36,25 @@
                     <td><input type="submit" value="Submit"/></td>
                 </tr>
             </table>
-	</form:form>
+	</form:form> --%>
+		<form  action="/SpringMVCTraining/student" method="post">
+			
+			<input type="text" name="id" id="id" value="${student.id}" hidden="hidden">
+			Name: 
+			<input type="text" name="name" id="name" value="${student.name}">
+			<br/><br/> 
+			Email: 
+			<input type="text" name="email" id="email" value="${student.email}">
+			<br/><br/> 
+			Password: 
+			<input type="text" name="password" id="password" value="${student.password}">
+			<br/><br/> 
+			Age: 
+			<input type="text" name="age" id="age" value="${student.age}">
+			<br/><br/> 
+			<input type="submit" value="Register">
 		
+		</form>
 	
 	</div>
 	

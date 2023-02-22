@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.codejango.model.Student;
+import com.mysql.cj.xdevapi.SessionFactory;
 
 @Repository
 @Transactional
@@ -20,10 +21,14 @@ public class StudentRepository {
 	@PersistenceContext  //Autowired
 	private EntityManager entityManager;
 	
+	
+	
 	public void save(Student student) {
 		
 		System.out.println("Student before save : "+student);
-		entityManager.persist(student);
+		entityManager.merge(student);
+		
+		
 		
 //		EntityTransaction transaction = entityManager.getTransaction();
 //		transaction.begin();
