@@ -37,6 +37,7 @@
                 </tr>
             </table>
 	</form:form> --%>
+		
 		<form  action="/SpringMVCTraining/student" method="post">
 			
 			<input type="text" name="id" id="id" value="${student.id}" hidden="hidden">

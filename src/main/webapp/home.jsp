@@ -12,6 +12,15 @@
 </head>
 <body>
 	<h1>Home</h1>
+	<h3>Search</h3>
+
+	<div>
+		<form action="/SpringMVCTraining/student/search" method="get">
+		
+			<input type="text" name="name" id="name" value="${name}">
+			<input type="submit" value="search">
+		</form>
+	</div>
 
 	<table border="1">
 		<tr>

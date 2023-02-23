@@ -73,4 +73,45 @@ public class StudentRepository {
 		
 		return entityManager.find(Student.class, id);
 	}
+
+
+	public List<Student> searchByName(String name) {
+		
+		Query query = entityManager.createQuery("From Student s where s.name like '%' || :name || '%'");
+		
+		query.setParameter("name", name);
+		
+		List<Student> studentList = query.getResultList();
+		
+		return studentList;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+//	public List<Student> searchByName(String name) {
+//
+//		Query query = entityManager.createQuery("FROM Student s where s.name like '%'|| :name || '%' ");
+//		//Query query = entityManager.createQuery("FROM Student s where s.name like :name");
+//		
+//		//query.setParameter("name", "%"+name+"%");
+//		query.setParameter("name", name);
+//		
+//		List<Student> studentList = query.getResultList();
+//		
+//		return studentList;
+//	}
 }

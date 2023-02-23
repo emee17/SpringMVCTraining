@@ -40,4 +40,27 @@ public class StudentService {
 		
 		return studentRepository.findByID(id);
 	}
+
+	public List<Student> searchByName(String name) {
+		
+		List<Student> studentList = studentRepository.searchByName(name);
+		
+		return studentList;
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	public List<Student> searchByName(String name) {
+//		
+//		return studentRepository.searchByName(name);
+//		
+//	}
 }
