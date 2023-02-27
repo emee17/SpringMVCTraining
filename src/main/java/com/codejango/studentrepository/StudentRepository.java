@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -84,6 +86,30 @@ public class StudentRepository {
 		List<Student> studentList = query.getResultList();
 		
 		return studentList;
+	}
+
+
+	public boolean findByEmailAndPassword(Student student) {
+
+		Query query = entityManager.createQuery("From Student s where s.email = :email and password =:password ");
+		
+		query.setParameter("email", student.getEmail());
+		query.setParameter("password", student.getPassword());
+		
+		Student studentDb;
+		try {
+			studentDb = (Student) query.getSingleResult();
+		} catch (NoResultException e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+		
+		System.out.println("login : "+ studentDb);
+		
+		if(studentDb != null) {
+			return true;
+		}
+		return false;
 	}
 
 	

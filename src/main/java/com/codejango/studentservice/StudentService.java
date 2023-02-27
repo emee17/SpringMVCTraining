@@ -48,6 +48,11 @@ public class StudentService {
 		return studentList;
 	}
 
+	public boolean findByEmailAndPassword(Student student) {
+		
+		return studentRepository.findByEmailAndPassword(student);
+	}
+
 	
 	
 	

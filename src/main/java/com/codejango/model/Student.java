@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name="student")
@@ -18,7 +19,8 @@ public class Student {
 	private int id;
 	@Column
 	private String name;
-	@Column
+	
+	@Column(unique = true)
 	private String email;
 	@Column
 	private String password;

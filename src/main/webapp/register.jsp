@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div>
-	${student.name}
+	
 	<%-- <form:form modelAttribute="student" action="/SpringMVCTraining/student" method="post">
 		<table>
                 <tr>

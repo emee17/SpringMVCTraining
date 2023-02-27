@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.codejango.model.Student;
@@ -17,6 +18,7 @@ import com.codejango.studentservice.StudentService;
 
 @Controller
 @RequestMapping("/student")//http://localhost:8080/SpringMVCTraining/student/test
+
 public class StudentController {
 	
 	
