@@ -2,6 +2,9 @@ package com.codejango.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,31 +30,68 @@ public class StudentController {
 	
 	
 	@PostMapping("")
-	public String saveStudent(@ModelAttribute("student") Student student, ModelAndView mv) {
+	public ModelAndView saveStudent(@ModelAttribute("student") Student student, ModelAndView mv, HttpServletRequest request) {
 		
 		
 		System.out.println("New Student : "+student);
 		
-		studentService.save(student);
+		HttpSession session = request.getSession();
+		
+		String email = (String) session.getAttribute("email");
+		
+		if(email== null) {
+			
+			mv.addObject("error_message", "Oops your are not logged in. Please login 1st");
+			mv.setViewName("/login.jsp");
+			
+			return mv;
+		}else {
+			studentService.save(student);
+			
+			List<Student> studentList = studentService.findAll();
+			
+			mv.addObject("studentList", studentList);
+			
+			mv.setViewName("/home.jsp");
+
+			//mv.setViewName("redirect:/");//localhost:8080/SpringMVCTraining/
+			
+			return mv;
+			
+		}
 		
 		
-		//mv.setViewName("home.jsp");
 		
-		
-		//mv.setViewName("redirect:/");//localhost:8080/SpringMVCTraining/
-		
-		return "redirect:/";
 	}
 	
 	@GetMapping("/delete/{id}")
-	public String deleteStudent(@PathVariable int id) {
+	public ModelAndView deleteStudent(@PathVariable int id, HttpServletRequest request, ModelAndView mv) {
 		// There are two types of value which come from URL
 		// 1 Path Variable http://localhost:8080/SpringMVCTraining/student/delete/4
 		// 2 RequestParam http://localhost:8080/SpringMVCTraining/student/delete/4?name=Ravi&age=25
 		
-		studentService.deleteByID(id);
+		HttpSession session = request.getSession();
 		
-		return "redirect:/";
+		String email = (String) session.getAttribute("email");
+		
+		if(email== null) {
+			
+			mv.addObject("error_message", "Oops your are not logged in. Please login 1st");
+			mv.setViewName("/login.jsp");
+			return mv;
+		}else {
+		
+			studentService.deleteByID(id);
+			
+			
+			List<Student> studentList = studentService.findAll();
+			
+			mv.addObject("studentList", studentList);
+			
+			mv.setViewName("/home.jsp");
+			
+			return mv;
+		}
 	}
 	
 	@GetMapping("/search")

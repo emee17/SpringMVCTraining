@@ -13,10 +13,10 @@
 <body>
 	<h1>Home</h1>
 	<h3>Search</h3>
-<div>Logged in User : <c:if test="${loggedInUser}"> ${loggedInUser}</c:if> 
+<div>Logged in User : 
 <c:choose>
-    <c:when test="${not empty loggedInUser}">
-        ${loggedInUser}
+    <c:when test="${not empty email}">
+        ${email}
     </c:when>    
     <c:otherwise>
        User not logged in
@@ -55,5 +55,8 @@
 	<a href="/SpringMVCTraining/login">Go to Login Page</a>
 	</br>
 	<a href="/SpringMVCTraining/register">Go to Register Page</a>
+	</br>
+	<a href="/SpringMVCTraining/logout">Log out</a>
+	
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.codejango.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,15 +43,7 @@ public class HomeController {
 	}
 	
 	
-	@GetMapping("/login")
-	public ModelAndView login(ModelAndView mv) {
-		
-		//ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("login.jsp");
-		
-		return mv;
-	}
+	
 	
 	@GetMapping("/register")
 	public ModelAndView registerPage(ModelAndView mv,
@@ -64,10 +57,23 @@ public class HomeController {
 //			return mv;
 //		}
 //		
-		mv.addObject("student", new Student());
-		mv.setViewName("register.jsp");
 		
-		return mv;
+		HttpSession session = request.getSession();
+		
+		String email = (String) session.getAttribute("email");
+		
+		if(email== null) {
+			
+			mv.addObject("error_message", "Oops your are not logged in. Please login 1st");
+			mv.setViewName("/login.jsp");
+			return mv;
+		}else {
+			mv.addObject("student", new Student());
+			mv.setViewName("register.jsp");
+			
+			return mv;
+		}
+		
 	}
 	
 	@GetMapping("/edit/{id}")
@@ -81,45 +87,89 @@ public class HomeController {
 //			mv.setViewName("/login.jsp");
 //			return mv;
 //		}
+		HttpSession session = request.getSession();
 		
-		Student student = studentService.findByID(id);
+		String email = (String) session.getAttribute("email");
 		
-		mv.addObject("student", student);
-		mv.setViewName("/register.jsp");
+		if(email == null ) {
+			mv.addObject("error_message", "Oops your are not logged in. Please login 1st");
+			mv.setViewName("/login.jsp");
+			
+			return mv;
+		}else {
+			Student student = studentService.findByID(id);
+			
+			mv.addObject("student", student);
+			mv.setViewName("/register.jsp");
+			
+			return mv;
+		}
+	}
+	
+	
+	@GetMapping("/login")
+	public ModelAndView login(ModelAndView mv) {
+		
+		//ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("login.jsp");
 		
 		return mv;
 	}
 	
-	@PostMapping("/logintoapp")
-	public String loginToApp(@ModelAttribute("student") Student student, Model mv) {
+	@PostMapping("/logintoapp")// end point / method / API
+	public String loginToApp(@ModelAttribute("student") Student student, Model mv, HttpServletRequest request) {
 		
 		
 		boolean isPresent = studentService.findByEmailAndPassword(student);
 		
-		if(!isPresent) {
-//			mv.addObject("error_message","username or password is incorrect");
+		if(isPresent) {
+			//return "/home.jsp";
+			//mv.setViewName("/home.jsp");
+			//return mv;
+			
+			HttpSession session = request.getSession();
+			
+			session.setAttribute("email", student.getEmail());
+			
+			
+			
+			List<Student> studentList = studentService.findAll();
+			
+			mv.addAttribute("studentList", studentList);
+			mv.addAttribute("email", student.getEmail());
+			
+			return "/home.jsp";
+//			
+		}else {
+			
 //			mv.setViewName("/login.jsp");
 //			return mv;
 			
 			mv.addAttribute("error_message","username or password is incorrect");
 			
 			return "/login.jsp";
-		}else {
 			
-			//return "/home.jsp";
-			//mv.setViewName("/home.jsp");
-			//return mv;
-			
-			List<Student> studentList = studentService.findAll();
-			
-			mv.addAttribute("studentList", studentList);
-			
-			return "/home.jsp";
 		}
 		
 		
 	}
 	
+	@GetMapping("/logout")
+	public ModelAndView logout ( ModelAndView mv ,HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		
+		session.invalidate();
+		
+		List<Student> studentList = studentService.findAll();
+		
+		mv.addObject("studentList", studentList);
+		
+		mv.setViewName("/home.jsp");
+		
+		return mv;
+	}
 	
 	
 	
